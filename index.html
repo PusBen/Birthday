@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boldog Születésnapot!</title>
+    <!-- Google Betűtípusok: Great Vibes (ünnepi) és Montserrat (olvasható) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Külső CSS fájl -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animált lebegő lufik a háttérben -->
+    <div class="balloon balloon-1"></div>
+    <div class="balloon balloon-2"></div>
+    <div class="balloon balloon-3"></div>
+    <div class="balloon balloon-4"></div>
+
+    <!-- Felső ünnepi szöveg -->
+    <h1 class="header-title">Boldog Születésnapot Csillagom! ❤️</h1>
+
+    <!-- Láthatatlan elem az interakcióhoz -->
+    <input type="checkbox" id="letter-toggle">
+
+    <!-- Sötétítő réteg megnyitáskor -->
+    <label for="letter-toggle" class="overlay"></label>
+
+    <!-- Boríték és Levél konténer -->
+    <div class="envelope-container">
+        <label for="letter-toggle" class="envelope">
+            <div class="letter">
+                <div class="letter-content">
+                    <h3>Boldog Születésnapot!  ❤️</h3>
+                    <p>Eljött ez a nap is, 18 éves lettél. Sok ideje vártad ezt a pillanatot és megérkezett. A mai nappal te is hivatalosan felnőtt lettél és mostmár te is bevásárolhatsz a bulikra. 😂❤️</p>
+                    <p>De viccet félretéve.</p>
+                    <p>Remélem boldog vagy és hogy jól telt az út, illetve jól telik az a nap ami csak a tiéd. 
+                        Elképesztően büszke vagyok rád mindenért amit elértél. 
+                        Boldog vagyok, hogy veled tölthetem ezt a szülinapodat is és hogy már lassan 3 éve egymás mellett vagyunk történt eddig bármi.
+                        Tudd, hogy mindennél jobban szeretlek téged és hogy számomra te vagy a legfontosabb.
+                        Szeretem azt aki vagy és azt aki lenni fogsz.
+                        Szeretem az együtt töltött perceket és a közös kalandokat.
+                        De egyszóval összefoglalva szeretlek és mindig szeretni foglak.
+                    <p>Remélem még sok születésnapodat ünnepelhetem veled és azt is, hogy ez a nap egy örök emlék marad számodra.</p>
+                    </p>
+                    <p>Szeretleeek ❤️🤍💗</p>
+                    <p class="close-hint">Kattints bárhova a bezáráshoz ✨</p>
+                </div>
+            </div>
+            <div class="envelope-front"></div>
+        </label>
+    </div>
+
+    <!-- 6 elemű kép placeholder galéria -->
+    <div class="gallery-grid">
+        <div class="photo-placeholder"><img src="kep1.jpg" alt="kép1" id="kep1"></div>
+        <div class="photo-placeholder"><img src="kep2.jpg" alt="kep2"></div>
+        <div class="photo-placeholder"><img src="kep3.jpg" alt="kep3"></div>
+        <div class="photo-placeholder"><img src="kep4.jpg" alt="kep4"></div>
+        <div class="photo-placeholder"><img src="kep5.jpg" alt="kep5"></div>
+        <div class="photo-placeholder"><img src="kep6.jpg" alt="kep6"></div>
+    </div>
+    <div id="password-overlay"><div class="password-card">
+        <h2>🎂 Szülinapi Belépő 🎁</h2>
+        <p>Add meg a jelszót!</p><input type="password" id="password-input" placeholder="Hány éves lettél?">
+        <button onclick="checkPassword()">Belépés ✨</button>
+        <p id="error-message"></p>
+    </div>
+</div>
+    <script>
+    function checkPassword() {
+        if (document.getElementById("password-input").value === "18") {
+            document.getElementById("password-overlay").style.display = "none";
+        } else {
+            document.getElementById("error-message").innerText = "Hibás jelszó! ❌";
+        }
+    }
+</script>
+</body>
+</html>

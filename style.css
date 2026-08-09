@@ -1,0 +1,264 @@
+/* --- ALAPBEÁLLÍTÁSOK & ÜNNEPI SZÍNEK --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* Festői, szülinapi átmenetes háttér */
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+    color: #4a3f35;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- LEBEGŐ LUFIK --- */
+.balloon {
+    position: absolute;
+    width: 60px;
+    height: 75px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    opacity: 0.7;
+    animation: float 8s infinite ease-in-out;
+    z-index: 0;
+}
+
+/* Lufik zsinege */
+.balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 28px;
+    width: 2px;
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.balloon-1 { background-color: #ff6b6b; top: 10%; left: 8%; animation-delay: 0s; }
+.balloon-2 { background-color: #feca57; top: 20%; right: 10%; animation-delay: 2s; }
+.balloon-3 { background-color: #ff9ff3; top: 65%; left: 5%; animation-delay: 4s; }
+.balloon-4 { background-color: #48dbfb; top: 60%; right: 8%; animation-delay: 1s; }
+
+/* --- FELSŐ ÜNNEPI SZÖVEG --- */
+.header-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #d63031;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+    z-index: 1;
+}
+
+/* --- BORÍTÉK KONTÉNER --- */
+.envelope-container {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    margin-bottom: 60px;
+    perspective: 1000px;
+    z-index: 2; /* A sötétítő réteg fölé emelve */
+}
+
+#letter-toggle {
+    display: none;
+}
+
+/* Boríték hátlapja - Aranyos/rózsaszínes árnyalat */
+.envelope {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e8a5a5;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+/* Nyitott fül lefelé mutatva */
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 110px solid #d88d8d;
+    transform-origin: top;
+    z-index: 1;
+}
+
+/* Boríték elülső oldalai */
+.envelope-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid #f3b6b6;
+    border-right: 160px solid #f3b6b6;
+    border-bottom: 110px solid #e29f9f;
+    border-top: 110px solid transparent;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* --- A LEVÉL --- */
+.letter {
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+    width: 290px;
+    height: 180px;
+    background-color: #fffefb;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                width 0.6s ease, 
+                height 0.6s ease, 
+                box-shadow 0.6s ease;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px dashed #f1a7a7;
+}
+
+.letter-content h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #d63031;
+}
+
+.letter-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* --- LEVÉL MEGNYITÁSA NAGYKÉPERNYŐN --- */
+#letter-toggle:checked ~ .envelope-container .letter {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    width: 85vw;
+    max-width: 650px;
+    height: 75vh;
+    max-height: 520px;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    cursor: default;
+    border: 3px double #f1a7a7;
+}
+
+/* Sötétítő réteg (kizárólag a háttérre hat) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px); /* Enyhe elmosás a háttérnek */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 1.5; /* Boríték alatt, háttér felett */
+}
+
+#letter-toggle:checked ~ .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.close-hint {
+    display: none;
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: #a08080;
+    text-align: center;
+    font-style: italic;
+}
+
+#letter-toggle:checked ~ .envelope-container .letter .close-hint {
+    display: block;
+}
+
+/* --- ÜNNEPI KÉP GALÉRIA --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    width: 100%;
+    max-width: 850px;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px solid #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #886060;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+}
+
+#kep1 {
+    object-position: top center;
+}
+
+.photo-placeholder:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+}
+
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Kitölti a kockát úgy, hogy nem torzul a kép */
+    border-radius: 9px;
+}
+/* Mobilos nézet */
+@media (max-width: 600px) {
+    .header-title {
+        font-size: 2.7rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+#password-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, #ff9a9e, #fecfef); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.password-card { background: white; padding: 30px; border-radius: 15px; text-align: center; max-width: 350px; width: 90%; }
+.password-card input { width: 100%; padding: 10px; margin: 15px 0; border: 2px solid #f3b6b6; border-radius: 8px; text-align: center; }
+.password-card button { width: 100%; padding: 10px; background: #d63031; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+#error-message { color: #d63031; margin-top: 10px; font-size: 0.9rem; }
